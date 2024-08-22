@@ -4,6 +4,14 @@ let noteTitle = ['Ba', 'Aufgabe'];
 let trashNotesTitle = [];
 let trashNotes = [];
 
+function init(){
+    getFromLocalStorage();
+renderTrashnotes();
+renderTrashnotes();
+
+
+}
+
 function renderNotes(){
     let contentRef = document.getElementById('content');
     contentRef.innerHTML = "";
@@ -22,7 +30,29 @@ function renderTrashnotes(){
     }
 }
 
+function saveToLocalStorage(){
+    localStorage.setItem('notes', JSON.stringify(notes));
+     localStorage.setItem('noteTitle', JSON.stringify(noteTitle));
+     localStorage.setItem('trashNotesTitle', JSON.stringify(trashNotesTitle));
+    localStorage.setItem('trashNotes', JSON.stringify(trashNotes));
 
+}
+
+
+
+
+
+function getFromLocalStorage() {
+   let storedData = localStorage.getItem('notes', JSON.parse(storedData));
+       let storedTitles = localStorage.getItem('noteTitle', JSON.parse(storedTitles));
+   let storedTrashnotes = localStorage.getItem('trashNotesTitle', JSON.parse(storedTrashnotes));
+   let storedTrashTitles = localStorage.getItem('trashNotes', JSON.parse(storedTrashTitles));
+
+        notes = storedData // Saqlangan JSON formatidagi ma'lumotni qayta massivga aylantirish
+    noteTitle = storedTitles
+        trashNotesTitle = storedTrashnotes
+        trashNotes = storedTrashTitles
+    }
 
 
 function getNoteTemplate(indexNote){
@@ -41,6 +71,7 @@ function addNote(){
         noteTitle.push("New Title")
         renderNotes()
         noteInputRef.value = "";
+        saveToLocalStorage()
 }
 
 
@@ -51,7 +82,7 @@ function notetotrash(indexNote){
        trashNotesTitle.push(trashNoteTitle)
     renderNotes();
     renderTrashnotes();
-    
+    saveToLocalStorage()
 
 }
 
@@ -61,7 +92,7 @@ function deletNote(indexNote){
     trashNotes.push(trashNote)
     renderNotes();
     renderTrashnotes()
-    
+    saveToLocalStorage()
 
 }
 
